@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.3/font/bootstrap-icons.min.css" integrity="sha512-YzwGgFdO1NQw1CZkPoGyRkEnUTxPSbGWXvGiXrWk8IeSqdyci0dEDYdLLjMxq1zCoU0QBa4kHAFiRhUL3z2bow==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <title>Operaciones Matriz</title>
+</head>
+<body>
+    <div id="app">
+        <div class="container p-2">
+            <div class="d-flex justify-content-center">
+                <a href="../"> <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-arrow-left-circle-fill text-info" viewBox="0 0 16 16">
+                     <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+                   </svg>
+                 </a>
+                 <h2 class="text-danger text-center"> {{titulo}}</h2>
+             </div>
+
+            <div class="row">
+
+                <div class="col-lg-6">
+                    <div class="row">
+                        <h4 class="text-center text-danger"><b>Matriz A:</b></h4>
+                        <div class="col-lg-4">
+                            <label for="filasA"><b>Numero de Filas</b></label>
+                            <input autofocus @keyup="MatrizA_impri=Generar_Matriz(MatrizA,filA,colA,aleatorioA)"  type="number" min="0" class="form form-control" name="filasA" id="filasA" v-model.number="filA">
+                        </div>
+
+                        <div class="col-lg-4">
+                            <label for="columnaA"><b>Numero de Columas</b></label>
+                            <input @keyup="MatrizA_impri=Generar_Matriz(MatrizA,filA,colA,aleatorioA)" type="number" min="0" class="form form-control" name="columnaA" id="columnaA" v-model.number="colA">
+                        </div>
+
+                        <div class="col-lg-3">
+                            <label for="aleatorioA"><b>Num Aleatorio</b></label>
+                            <input @keyup="MatrizA_impri=Generar_Matriz(MatrizA,filA,colA,aleatorioA)" type="number" min="1" class="form form-control" name="aleatorioA" id="aleatorioA" v-model.number="aleatorioA">
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="row">
+                        <h4 class="text-center text-danger"><b>Matriz B:</b></h4>
+                        <div class="col-lg-4">
+                            <label for="filasB"><b>Numero de Filas</b></label>
+                            <input @keyup="MatrizB_impri=Generar_Matriz(MatrizB,filB,colB,aleatorioB)" type="number" min="0" class="form form-control" name="filasB" id="filasB" v-model.number="filB">
+                        </div>
+
+                        <div class="col-lg-4">
+                            <label for="columnaB"><b>Numero de Colunmas</b></label>
+                            <input @keyup="MatrizB_impri=Generar_Matriz(MatrizB,filB,colB,aleatorioB)" type="number" min="0" class="form form-control" name="columnaB" id="columnaB" v-model.number="colB">
+                        </div>
+
+                        <div class="col-lg-3">
+                            <label for="aleatorioB"><b>Num Aleatorio</b></label>
+                            <input @keyup="MatrizB_impri=Generar_Matriz(MatrizB,filB,colB,aleatorioB)" type="number" min="1" class="form form-control" name="aleatorioB" id="aleatorioB" v-model.number="aleatorioB">
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            
+
+        </div>
+
+        
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5">
+                    <h4 class="text-center">Matriz A de {{filA}} * {{colA}}</h4>
+                    <textarea @keyup="actualizar_array(MatrizA_impri,MatrizA)" class="form form-control text-center" id="" rows="7" v-model="MatrizA_impri">{{MatrizA_impri}}</textarea>
+                    
+                    <div class="container">
+                        <div class="row align-items-start">
+                          <div class="col">
+                           <p class="text-center"><b>Multiplicar:</b></p>
+                           <input type="number" v-model.number="Multiplica_X_A" @keyup="operaciones_matrices(MatrizA,filA,colA,Multiplica_X_A,'*')"  class="form form-control" name="" id="">
+                          </div>     
+                          
+                          <div class="col">
+                            <p class="text-center"><b>Elevado Al:</b></p>
+                            <input type="number" min="1" v-model.number="Potencia_A" @keyup="operaciones_matrices(MatrizA,filA,colA,Potencia_A,'^')"  class="form form-control" name="" id="">
+                           </div> 
+
+                           <div class="col">
+                            <p class="text-center"><b>Sumar:</b></p>
+                            <input type="number"  v-model.number="Sumar_A" @keyup="operaciones_matrices(MatrizA,filA,colA,Sumar_A,'+')"  class="form form-control" name="" id="">
+                           </div> 
+
+                           <div class="col">
+                            <p class="text-center"><b>Restar:</b></p>
+                            <input type="number"  v-model.number="Restar_A" @keyup="operaciones_matrices(MatrizA,filA,colA,Restar_A,'-')"  class="form form-control" name="" id="">
+                           </div> 
+
+                        </div>
+                    </div>    
+
+
+                    <div class="container">
+                        <div class="row align-items-start">
+                          <div class="col">
+                            <button v-on:click="matriz_Transpuesta(MatrizA,'T')" class="btn btn-outline-dark mt-1"><b>Transpuesta</b></button>
+                          </div> 
+                          <div class="col">
+                            <button v-on:click="Resultado= determinante(MatrizA,MatrizA_impri,filA,colA,'A').mostrar" class="btn btn-outline-dark mt-1"><b>Determinante</b></button>
+                          </div>
+
+                          <div class="col">
+                            <button v-on:click="matrizInversa(MatrizA)" class="btn btn-outline-dark mt-1"><b>Inversa</b></button>
+                          </div>
+
+                          <div class="col">
+                            <button v-on:click="matrizAdjunta(MatrizA)" class="btn btn-outline-dark mt-1"><b>Adjunta</b></button>
+                          </div>
+
+                          <div class="col">
+                            <button v-on:click="matrizCofactores(MatrizA,'MC')" class="btn btn-outline-dark mt-1"><b>Coofactores</b></button>
+                          </div>
+
+                          <div class="col">
+                            <button v-on:click="Gauss_Jordan(MatrizA,filA,colA)" class="btn btn-outline-dark mt-1"><b>Gauss Jordan</b></button>
+                          </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                
+
+                 <div class="align-self-center col-lg-2 p-5">  
+                    <button v-on:click="invertir_matriz()" class="btn btn-outline-danger"></span><b><i class="bi bi-arrow-left-right"></i></b></button>               
+                    <button v-on:click="Multiplicacion()" class="btn btn-outline-primary mt-1"><b>Multiplicar</b></button>
+                    <button v-on:click="Sumar()" class="btn btn-outline-success mt-1"><b>Sumar</b></button>
+                    <button v-on:click="Restar()" class="btn btn-outline-secondary mt-1"><b>Restar</b></button>                  
+                </div>
+                
+                <div class="col-lg-5">
+                    <h4 class="text-center">Matriz B de {{filB}} * {{colB}}</h4>
+                    <textarea  @keyup="actualizar_array(MatrizB_impri,MatrizB)" class="form form-control text-center" id="" rows="7"  v-model="MatrizB_impri">{{MatrizB_impri}}</textarea>
+                    <div class="container">
+                        <div class="row align-items-start">
+                          <div class="col">
+                           <p class="text-center"><b>Multiplicar:</b></p>
+                           <input type="number"  v-model.number="Multiplica_X_B" @keyup=" operaciones_matrices(MatrizB,filB,colB,Multiplica_X_B,'*')"  class="form form-control" name="" id="">
+                          </div> 
+
+                          <div class="col">
+                            <p class="text-center"><b>Elevado Al:</b></p>
+                            <input type="number" min="1" v-model.number="Potencia_B" @keyup=" operaciones_matrices(MatrizB,filB,colB,Potencia_B,'^')"  class="form form-control" name="" id="">
+                           </div> 
+                           
+                           <div class="col">
+                            <p class="text-center"><b>Sumar:</b></p>
+                            <input type="number" v-model.number="Sumar_B" @keyup=" operaciones_matrices(MatrizB,filB,colB,Sumar_B,'+')"  class="form form-control" name="" id="">
+                           </div> 
+
+                           <div class="col">
+                            <p class="text-center"><b>Restar:</b></p>
+                            <input type="number"  v-model.number="Restar_B" @keyup=" operaciones_matrices(MatrizB,filB,colB,Restar_B,'-')"  class="form form-control" name="" id="">
+                           </div> 
+                        </div>
+                    </div> 
+
+                    <div class="container">
+                        <div class="row align-items-start">
+                          <div class="col">
+                            <button v-on:click="matriz_Transpuesta(MatrizB,'T')" class="btn btn-outline-dark mt-1"><b>Transpuesta</b></button>
+                          </div> 
+                          <div class="col">
+                            <button v-on:click="Resultado= determinante(MatrizB,MatrizB_impri,filB,colB,'B').mostrar" class="btn btn-outline-dark mt-1"><b>Determinante</b></button>
+                            <!--<button v-on:click="Resultado= determinante2(MatrizB,MatrizB_impri,filB,colB,'B').mostrar" class="btn btn-outline-dark mt-1"><b>Determinante2</b></button>-->
+                          </div> 
+                          <div class="col">
+                            <button v-on:click="matrizInversa(MatrizB)" class="btn btn-outline-dark mt-1"><b>Inversa</b></button>
+                          </div>
+
+                          <div class="col">
+                            <button v-on:click="matrizAdjunta(MatrizB)" class="btn btn-outline-dark mt-1"><b>Adjunta</b></button>
+                          </div>
+
+                          <div class="col">
+                            <button v-on:click="matrizCofactores(MatrizB,'MC')" class="btn btn-outline-dark mt-1"><b>Coofactores</b></button>
+                          </div>
+
+                          <div class="col">
+                            <button v-on:click="Gauss_Jordan(MatrizB,filB,colB)" class="btn btn-outline-dark mt-1"><b>Gauss Jordan</b></button>
+                          </div>
+                          
+
+                        </div>
+                    </div>
+
+                </div>               
+
+            </div>
+        </div>
+        
+        <div class="container p-2">
+
+            <div class="card">
+                <div class="card-header bg-success">
+                <h3 class="text-light text-center">Solucion</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                    
+                        <div class="col-lg-5">
+                            <div class="text-center">
+                                <textarea  readonly class="form form-control text-center text-primary" id="" rows="7">{{Resultado}}</textarea>                   
+                            </div>
+                        </div>
+    
+                        <div class="col-lg-7">  
+                            <textarea  readonly class="form form-control text-center text-danger" id="" rows="7">{{Pasos}}</textarea>  
+                       
+                         </div>
+    
+                    </div>
+                                            
+                </div>
+            </div>
+
+        </div>
+        
+    </div>
+    <script src="./operaciones.js"></script>
+
+</body>
+</html>

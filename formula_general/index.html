@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_HTML"></script>
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <title>Formula general</title>
+
+</head>
+
+<div class="container my-2" id="app">
+    
+    <div class="d-flex justify-content-center">
+        <a href="../"> <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-arrow-left-circle-fill text-info" viewBox="0 0 16 16">
+            <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+          </svg>
+        </a>
+        <h2 class="text-danger text-center"> {{Mi_titulo}}</h2>       
+        
+
+    </div>
+    <form action="/formula_general/" method="get">
+        <div class="center">
+            <div class="row text-center">
+                
+                    <div class="col-lg-3">
+                            <label for="A"><b>Valor A</b></label>
+                            <input required type="number" name="A" id="A" class="form form-control" v-model.number="valA" >
+                    </div>
+
+                    <div class="col-lg-3">
+                            <label for="B"><b>Valor B</b></label>
+                            <input required type="number" name="B" id="B" class="form form-control" v-model.number="valB">
+                    </div>
+
+                    <div class="col-lg-3">
+                            <label for="C"><b>Valor C</b></label>
+                            <input required type="number" name="C" id="C" class="form form-control" v-model.number="valC">
+                    </div>
+
+                    <div class="col-lg-3 d-grid gap-2 mx-auto">                    
+                        <button class="btn btn-outline-danger lg"> R E A L I Z A R </button>
+                    </div>
+                   
+            
+            </div>
+        </div>
+    </form>    
+    <for_geral :A_val="valA" :B_val="valB" :C_val="valC"></for_geral>
+               
+</div>
+
+<script src="for_gral.js"></script>
+<script>
+    const valores = window.location.search;
+    const urlParams = new URLSearchParams(valores);
+    var A = urlParams.get('A');
+    var B = urlParams.get('B');
+    var C = urlParams.get('C');
+    new Vue({
+        el:'#app',
+        data:{
+            Mi_titulo:"Formula general",
+            valA:A,
+            valB:B,
+            valC:C
+        }
+    });
+</script>
+<body>
+    
+</body>
+</html>
